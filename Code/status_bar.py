@@ -1,20 +1,21 @@
 import psutil
+import time
 from PySide6.QtWidgets import QStatusBar, QLabel
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import QTimer, QDateTime
 
 
 class StatusBar(QStatusBar):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.time=QLabel("00:00")
+        self.time_label = QLabel("00:00:00")
         self.cursor_label = QLabel("Ln 1, Col 1")
         self.separator1 = QLabel("|")
         self.cpu_label = QLabel("CPU: 0%")
         self.separator2 = QLabel("|")
         self.memory_label = QLabel("RAM: 0%")
 
-        self.addWidget(self.time)
+        self.addWidget(self.time_label)
         self.addPermanentWidget(self.cursor_label)
         self.addPermanentWidget(self.separator1)
         self.addPermanentWidget(self.cpu_label)
@@ -30,61 +31,45 @@ class StatusBar(QStatusBar):
                 color: white;
                 margin: 0 6px;
             }
-            QLabel#cpu_normal {
-                color: #4CAF50;  
-            }
-            QLabel#cpu_warning {
-                color: #FF9800;  
-            }
-            QLabel#cpu_critical {
-                color: #F44336;  
-            }
-            QLabel#ram_normal {
-                color: #4CAF50;  
-            }
-            QLabel#ram_warning {
-                color: #FF9800;  
-            }
-            QLabel#ram_critical {
-                color: #F44336;  
-            }
         """)
 
-
-        self.cpu_label.setObjectName("cpu_normal")
-        self.memory_label.setObjectName("ram_normal")
-
-
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.update_system_usage)
-        self.timer.start(1000)
+        self.system_timer = QTimer()
+        self.system_timer.timeout.connect(self.update_system_usage)
+        self.system_timer.start(1000)
         self.update_system_usage()
+
+        self.coding_timer = QTimer()
+        self.coding_timer.timeout.connect(self.update_timer)
+        self.elapsed_seconds = 0
+        self.coding_timer.start(1000)
+
+    def get_percentage_color(self, percent):
+        if percent <= 50:
+            return "#00ff00"
+        elif percent <= 80:
+            return "#ffa500"
+        else:
+            return "#ff0000"
 
     def update_system_usage(self):
         cpu = psutil.cpu_percent(interval=None)
         mem = psutil.virtual_memory().percent
 
-        self.cpu_label.setText(f"CPU: {cpu:.0f}%")
-        if cpu > 80:
-            self.cpu_label.setObjectName("cpu_critical")
-        elif cpu > 60:
-            self.cpu_label.setObjectName("cpu_warning")
-        else:
-            self.cpu_label.setObjectName("cpu_normal")
+        cpu_color = self.get_percentage_color(cpu)
+        mem_color = self.get_percentage_color(mem)
 
-        self.memory_label.setText(f"RAM: {mem:.0f}%")
-        if mem > 85:
-            self.memory_label.setObjectName("ram_critical")
-        elif mem > 70:
-            self.memory_label.setObjectName("ram_warning")
-        else:
-            self.memory_label.setObjectName("ram_normal")
 
-        self.cpu_label.style().unpolish(self.cpu_label)
-        self.cpu_label.style().polish(self.cpu_label)
-        self.memory_label.style().unpolish(self.memory_label)
-        self.memory_label.style().polish(self.memory_label)
+        self.cpu_label.setText(f'<font color="{cpu_color}">CPU: {cpu:.0f}%</font>')
+        self.memory_label.setText(f'<font color="{mem_color}">RAM: {mem:.0f}%</font>')
 
     def update_cursor_position(self, line, col):
         self.cursor_label.setText(f"Ln {line}, Col {col}")
 
+    def update_timer(self):
+        self.elapsed_seconds += 1
+
+        hours = self.elapsed_seconds // 3600
+        minutes = (self.elapsed_seconds % 3600) // 60
+        seconds = self.elapsed_seconds % 60
+
+        self.time_label.setText(f"{hours:02d}:{minutes:02d}:{seconds:02d}")

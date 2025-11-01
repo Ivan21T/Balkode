@@ -2,8 +2,10 @@ import os
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
-base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from observer import Observer
 
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+observer=Observer()
 class IconBarButton(QPushButton):
     def __init__(self, icon_path, tooltip, parent=None):
         super().__init__(parent)
@@ -11,7 +13,6 @@ class IconBarButton(QPushButton):
         self.setToolTip(tooltip)
         self.setCheckable(True)
         self.setIcon(QIcon(icon_path))
-
         self.setIconSize(QSize(24, 24))
 
         self.setStyleSheet("""
@@ -44,6 +45,7 @@ class ActivityBar(QFrame):
 
         self.current_activity = None
         self.setup_activity_bar()
+        observer.value = self.current_activity
 
     def setup_activity_bar(self):
         layout = QVBoxLayout()
@@ -53,7 +55,8 @@ class ActivityBar(QFrame):
         activities = [
             (os.path.join(base_dir, "Assets", "ActivityBar_Icons", "explorer.png"), "Explorer"),
             (os.path.join(base_dir, "Assets", "ActivityBar_Icons", "search.png"), "Search"),
-            (os.path.join(base_dir, "Assets", "ActivityBar_Icons", "debug.png"), "Debug")
+            (os.path.join(base_dir, "Assets", "ActivityBar_Icons", "debug.png"), "Debug"),
+            (os.path.join(base_dir, "Assets", "ActivityBar_Icons", "terminal.png"), "Terminal")
         ]
 
         for icon_path, tooltip in activities:
@@ -73,6 +76,7 @@ class ActivityBar(QFrame):
 
         self.setLayout(layout)
 
+
     def on_button_toggled(self, checked):
         sender_btn = self.sender()
 
@@ -82,5 +86,8 @@ class ActivityBar(QFrame):
                     btn.setChecked(False)
 
             self.current_activity = sender_btn.activity_name
+            observer.value = self.current_activity
+
         else:
             self.current_activity = None
+            observer.value = self.current_activity
