@@ -34,9 +34,14 @@ class MainWindow(QMainWindow):
         self.search_frame = SearchFrame()
         self.terminal_frame = TerminalFrame()
 
+        #Layout for code editor with terminal and line number
+        self.code_area_widget = QWidget()
+        self.layout_code_area = QHBoxLayout(self.code_area_widget)
+        self.layout_code_area.addWidget(self.line_bar)
+        self.layout_code_area.addWidget(self.editor_area)
 
         self.splitter = QSplitter(Qt.Vertical)
-        self.splitter.addWidget(self.editor_area)
+        self.splitter.addWidget(self.code_area_widget)
         self.splitter.addWidget(self.terminal_frame)
         self.splitter.setSizes([400, 200])
 
@@ -45,6 +50,9 @@ class MainWindow(QMainWindow):
 
         self.main_layout.addWidget(self.activity_bar)
         self.main_layout.addWidget(self.splitter)
+
+        self.main_layout.setStretch(0, 0)  # activity_bar won't stretch
+        self.main_layout.setStretch(1, 1)  # splitter will take all remaining space
         self.central_widget.setLayout(self.main_layout)
 
         self.status_bar = StatusBar()
