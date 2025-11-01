@@ -3,13 +3,14 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 
-from blank_page import BlankPage
+from welcome_page import WelcomePage
 from activity_bar import ActivityBar, observer
 from status_bar import StatusBar
 from code_editor import CodeEdit
 from line_bar import LineBar
 from search_frame import SearchFrame
 from observer import Observer
+from terminal import TerminalFrame
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -31,13 +32,20 @@ class MainWindow(QMainWindow):
         self.line_bar=LineBar()
         self.editor_area = CodeEdit()
         self.search_frame = SearchFrame()
+        self.terminal_frame = TerminalFrame()
+
+
+        self.splitter = QSplitter(Qt.Vertical)
+        self.splitter.addWidget(self.editor_area)
+        self.splitter.addWidget(self.terminal_frame)
+        self.splitter.setSizes([400, 200])
 
         self.editor_area.cursorPositionChanged.connect(self.update_cursor_position)
         observer.on_change.register(self.update_layout)
 
         self.main_layout.addWidget(self.activity_bar)
+        self.main_layout.addWidget(self.splitter)
         self.central_widget.setLayout(self.main_layout)
-
 
         self.status_bar = StatusBar()
         self.setStatusBar(self.status_bar)
