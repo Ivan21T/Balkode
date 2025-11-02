@@ -128,33 +128,27 @@ class TerminalFrame(QFrame):
 
     # Resize methods
     def expand(self):
-        """Make terminal bigger"""
         current_height = self.height()
         self.setMinimumHeight(current_height + 100)
 
     def shrink(self):
-        """Make terminal smaller"""
         current_height = self.height()
         if current_height > 100:
             self.setMinimumHeight(current_height - 100)
 
     def set_height(self, height):
-        """Set specific height"""
         self.setFixedHeight(height)
 
     def toggle_size(self):
-        """Toggle between small and large"""
         if self.height() <= 150:
             self.setFixedHeight(400)
         else:
             self.setFixedHeight(150)
 
     def close_terminal(self):
-        """Quick close terminal"""
         if self.process and self.process.state() == QProcess.Running:
             self.process.kill()
         self.hide()
 
     def clear_terminal(self):
-        """Clear terminal output"""
         self.output.clear()

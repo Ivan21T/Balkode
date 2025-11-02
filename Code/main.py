@@ -4,8 +4,8 @@ import window
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
-from Code.activity_bar import base_dir
-
+from activity_bar import base_dir
+from startup_animation import StartupAnimation
 app = QApplication()
 
 app.setStyle("Fusion")
@@ -27,5 +27,7 @@ app.setPalette(palette)
 app.setWindowIcon(QIcon(os.path.join(base_dir,"Assets","balkode.png")))
 
 window = window.MainWindow()
+loader=StartupAnimation()
+loader.show()
 window.show()
 app.exec()
