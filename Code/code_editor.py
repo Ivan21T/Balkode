@@ -1,14 +1,14 @@
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
-
+from line_bar import*
 
 class CodeEdit(QPlainTextEdit):
-    def __init__(self):
+    def __init__(self, line_bar):
         super().__init__()
-        self.breakpoints = {}
+        self.line_bar = line_bar
         self.setup_editor()
-
+        self.cursorPositionChanged.connect(self.on_cursor_moved)
 
     def setup_editor(self):
         self.setStyleSheet("""
@@ -16,12 +16,28 @@ class CodeEdit(QPlainTextEdit):
                 background-color: #1e1e1e;
                 color: #d4d4d4;
                 border: 1px solid #3e3e3e;
-                border-radius: 4px;
-                font-family: 'Consolas', 'Monaco', monospace;
+                font-family: 'Consolas', monospace;
                 font-size: 12px;
-                selection-background-color: #264f78;
-            }
-            QPlainTextEdit:focus {
-                border: 1px solid #565656;
             }
         """)
+
+    def keyPressEvent(self, event):
+        cursor = self.textCursor()
+        block = cursor.block()
+        line_text = block.text().strip()
+
+        # ENTER → add number
+        if event.key() in (Qt.Key_Return, Qt.Key_Enter):
+            self.line_bar.add_number()
+
+        # BACKSPACE → remove number if line empty
+        elif event.key() == Qt.Key_Backspace:
+            if not line_text and self.line_bar.number > 1:
+                self.line_bar.remove_number()
+
+        super().keyPressEvent(event)
+
+    def on_cursor_moved(self):
+        """Whenever the cursor moves, highlight that line."""
+        line_number = self.textCursor().blockNumber() + 1
+        self.line_bar.highlight_line(line_number)

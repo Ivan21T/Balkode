@@ -9,7 +9,7 @@ class SearchFrame(QFrame):
         self.setup_ui()
 
     def setup_ui(self):
-        self.setFixedWidth(220)  # More compact width
+        self.setFixedWidth(220)
         self.setStyleSheet("""
             SearchBar {
                 background: #252526;

@@ -30,7 +30,7 @@ class MainWindow(QMainWindow):
 
         self.activity_bar = ActivityBar()
         self.line_bar=LineBar()
-        self.editor_area = CodeEdit()
+        self.editor_area = CodeEdit(self.line_bar)
         self.search_frame = SearchFrame()
         self.terminal_frame = TerminalFrame()
 
