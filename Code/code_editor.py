@@ -26,11 +26,9 @@ class CodeEdit(QPlainTextEdit):
         block = cursor.block()
         line_text = block.text().strip()
 
-        # ENTER → add number
         if event.key() in (Qt.Key_Return, Qt.Key_Enter):
             self.line_bar.add_number()
 
-        # BACKSPACE → remove number if line empty
         elif event.key() == Qt.Key_Backspace:
             if not line_text and self.line_bar.number > 1:
                 self.line_bar.remove_number()
@@ -38,6 +36,5 @@ class CodeEdit(QPlainTextEdit):
         super().keyPressEvent(event)
 
     def on_cursor_moved(self):
-        """Whenever the cursor moves, highlight that line."""
         line_number = self.textCursor().blockNumber() + 1
         self.line_bar.highlight_line(line_number)

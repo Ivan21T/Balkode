@@ -51,8 +51,8 @@ class MainWindow(QMainWindow):
         self.main_layout.addWidget(self.activity_bar)
         self.main_layout.addWidget(self.splitter)
 
-        self.main_layout.setStretch(0, 0)  # activity_bar won't stretch
-        self.main_layout.setStretch(1, 1)  # splitter will take all remaining space
+        self.main_layout.setStretch(0, 0)
+        self.main_layout.setStretch(1, 1)
         self.central_widget.setLayout(self.main_layout)
 
         self.status_bar = StatusBar()

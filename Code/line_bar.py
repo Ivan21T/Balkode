@@ -15,12 +15,13 @@ class LineBar(QFrame):
         """)
         self.setup_line_number_bar()
         self.number = 1
-        self.add_number()  # Start with line 1
+        self.add_number()
 
     def setup_line_number_bar(self):
         self.layout = QVBoxLayout()
         self.layout.setContentsMargins(0, 5, 0, 5)
         self.layout.setSpacing(0)
+        self.layout.setAlignment(Qt.AlignTop)
         self.setLayout(self.layout)
 
     def add_number(self):
@@ -36,7 +37,7 @@ class LineBar(QFrame):
         self.number += 1
 
     def remove_number(self):
-        if self.layout.count() > 0:
+        if self.layout.count() > 1:
             item = self.layout.takeAt(self.layout.count() - 1)
             widget = item.widget()
             if widget:
