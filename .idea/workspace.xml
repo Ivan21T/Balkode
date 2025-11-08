@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7c8a028-308a-46a9-a060-97b1e5501763" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Code/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Code/menu_bar.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Code/code_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/code_editor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Language_Icons/css.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Language_Icons/html.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Language_Icons/python.svg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Code/file_bar.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/file_bar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Code/line_bar.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/line_bar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Code/welcome_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/welcome_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Code/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/window.py" afterDir="false" />
     </list>
@@ -42,10 +44,12 @@
     "Python.activity_bar.executor": "Run",
     "Python.blank_page.executor": "Run",
     "Python.code_editor.executor": "Run",
+    "Python.file_bar.executor": "Run",
     "Python.file_explorer.executor": "Run",
     "Python.iconbar.executor": "Run",
     "Python.line_bar.executor": "Run",
     "Python.main.executor": "Run",
+    "Python.menu_bar.executor": "Run",
     "Python.search_frame.executor": "Run",
     "Python.startup_animation.executor": "Run",
     "Python.status_bar.executor": "Run",
@@ -97,6 +101,7 @@
       <workItem from="1762157502855" duration="6751000" />
       <workItem from="1762546001750" duration="1229000" />
       <workItem from="1762586464110" duration="6065000" />
+      <workItem from="1762612310356" duration="12031000" />
     </task>
     <servers />
   </component>
@@ -116,17 +121,19 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Balkode$startup_animation.coverage" NAME="startup_animation Coverage Results" MODIFIED="1762158873998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
-    <SUITE FILE_PATH="coverage/Balkode$welcome_page.coverage" NAME="welcome_page Coverage Results" MODIFIED="1762593037564" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
+    <SUITE FILE_PATH="coverage/Balkode$menu_bar.coverage" NAME="menu_bar Coverage Results" MODIFIED="1762627932054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
+    <SUITE FILE_PATH="coverage/Balkode$welcome_page.coverage" NAME="welcome_page Coverage Results" MODIFIED="1762612440552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/Balkode$iconbar.coverage" NAME="iconbar Coverage Results" MODIFIED="1761505355954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/Balkode$file_explorer.coverage" NAME="file_explorer Coverage Results" MODIFIED="1762161468287" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
-    <SUITE FILE_PATH="coverage/Balkode$line_bar.coverage" NAME="line_bar Coverage Results" MODIFIED="1762164322886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
+    <SUITE FILE_PATH="coverage/Balkode$line_bar.coverage" NAME="line_bar Coverage Results" MODIFIED="1762616807770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/Balkode$window.coverage" NAME="window Coverage Results" MODIFIED="1762163829267" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/Balkode$activity_bar.coverage" NAME="activity_bar Coverage Results" MODIFIED="1761943252708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
+    <SUITE FILE_PATH="coverage/Balkode$file_bar.coverage" NAME="file_bar Coverage Results" MODIFIED="1762620458339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/Balkode$code_editor.coverage" NAME="code_editor Coverage Results" MODIFIED="1761908576870" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
-    <SUITE FILE_PATH="coverage/Balkode$main.coverage" NAME="main Coverage Results" MODIFIED="1762589708095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
+    <SUITE FILE_PATH="coverage/Balkode$main.coverage" NAME="main Coverage Results" MODIFIED="1762628687678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/Balkode$terminal.coverage" NAME="terminal Coverage Results" MODIFIED="1762008359820" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/Balkode$search_frame.coverage" NAME="search_frame Coverage Results" MODIFIED="1762003006902" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/Balkode$blank_page.coverage" NAME="blank_page Coverage Results" MODIFIED="1761942361340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
-    <SUITE FILE_PATH="coverage/Balkode$status_bar.coverage" NAME="status_bar Coverage Results" MODIFIED="1761942586878" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
+    <SUITE FILE_PATH="coverage/Balkode$status_bar.coverage" NAME="status_bar Coverage Results" MODIFIED="1762624223749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
   </component>
 </project>

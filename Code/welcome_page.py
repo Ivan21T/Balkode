@@ -77,3 +77,4 @@ class WelcomePage(QWidget):
             print(f"Selected folder: {folder}")
 
 
+

@@ -3,6 +3,7 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 
+from Code.menu_bar import MenuBar
 from welcome_page import WelcomePage
 from activity_bar import ActivityBar, observer
 from status_bar import StatusBar
@@ -11,6 +12,7 @@ from line_bar import LineBar
 from search_frame import SearchFrame
 from observer import Observer
 from terminal import TerminalFrame
+from menu_bar import MenuBar
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -28,6 +30,7 @@ class MainWindow(QMainWindow):
         self.main_layout.setContentsMargins(0, 0, 0, 0)
         self.main_layout.setAlignment(Qt.AlignLeft)
 
+        self.menu_bar = MenuBar()
         self.activity_bar = ActivityBar()
         self.line_bar=LineBar()
         self.editor_area = CodeEdit(self.line_bar)
@@ -57,6 +60,7 @@ class MainWindow(QMainWindow):
 
         self.status_bar = StatusBar()
         self.setStatusBar(self.status_bar)
+        self.setMenuBar(self.menu_bar)
 
     def update_cursor_position(self):
         cursor = self.editor_area.textCursor()
