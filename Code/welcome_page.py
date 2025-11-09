@@ -37,9 +37,11 @@ class WelcomePage(QWidget):
 
         layout = QVBoxLayout(self)
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.setSpacing(20)
+        layout.setSpacing(15)
+        layout.insertSpacing(1, 5)
 
         logo_label = QLabel()
+        logo_label.setStyleSheet("background-color: transparent;")
         pixmap = QPixmap(os.path.join(base_dir,"Assets","welcome_icon.png"))
         pixmap = pixmap.scaled(QSize(250, 250),
                                Qt.KeepAspectRatio,
@@ -47,14 +49,6 @@ class WelcomePage(QWidget):
         logo_label.setPixmap(pixmap)
         logo_label.setAlignment(Qt.AlignCenter)
         layout.addWidget(logo_label)
-
-
-        title_label = QLabel("Welcome to Balkode!")
-        title_label.setAlignment(Qt.AlignCenter)
-        title_label.setFont(QFont("Segoe UI", 20, QFont.Weight.Bold))
-        layout.addWidget(title_label)
-
-
         open_file_btn = QPushButton(QIcon(os.path.join(base_dir,"Assets","WelcomePage_Icons","file.png"))
                                     ," Open File")
         open_folder_btn = QPushButton(QIcon(os.path.join(base_dir,"Assets","WelcomePage_Icons","folder.png"))
