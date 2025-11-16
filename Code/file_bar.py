@@ -3,6 +3,18 @@ import os
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
+import json
+
+with open("settings.json", "r") as file:
+    style_settings = json.load(file)
+file_bar_style = ""
+if style_settings["settings"][0]["theme"]=="Dark":
+    for style_entry in style_settings["styles"]["dark"]:
+        if style_entry["name"] == "file_bar":
+            file_bar_style = style_entry["style"]
+            break
+else:
+    print("No light theme")
 
 
 class FileBar(QTabWidget):
@@ -15,68 +27,7 @@ class FileBar(QTabWidget):
         self.setMovable(True)
         self.setDocumentMode(True)
 
-        self.setStyleSheet("""
-                    QTabWidget::pane {
-                        border: none;
-                        background: transparent;
-                        margin: 0px;
-                        padding: 0px;
-                    }
-
-                    QTabBar {
-                        border: none;
-                        background: transparent;
-                    }
-
-                     QTabBar::tab {
-                        background: #363636;
-                        color: #cccccc;
-                        padding: 8px 24px 8px 16px;  
-                        margin-right: 4px;
-                        border: 1px solid transparent;
-                        font-weight: 500;
-                        min-width: 120px;
-                        border-radius: 6px;
-                        margin-top: 4px;
-                        margin-bottom: 2px;
-                    }
-
-                    QTabBar::tab:selected {
-                        background: #363636;
-                        color: #ffffff;
-                        border: 1px solid #007acc;
-                        margin-top: 0px;
-                        margin-bottom: 0px;
-                        margin-right: 6px;
-                    }
-
-                    QTabBar::tab:!selected {
-                        background: #363636;
-                        margin-right: 6px;
-                    }
-
-                    QTabBar::tab:hover {
-                        background: #3e3e42;
-                        margin-right: 6px;
-                    }
-
-                    QTabBar::tab:selected:hover {
-                        background: #363636;
-                        border: 1px solid #007acc;
-                        margin-right: 6px;
-                    }
-
-                    QTabBar::close-button {
-                        margin-right: 8px;
-                    }
-
-                    QTabBar::tab:!selected QTabBar::close-button {
-                        width: 0px;
-                        height: 0px;
-                        margin: 0px;
-                        padding: 0px;
-                    }
-                """)
+        self.setStyleSheet(file_bar_style)
 
         self.tabCloseRequested.connect(self.close_tab)
 
@@ -96,7 +47,6 @@ class FileBar(QTabWidget):
             if reply == QMessageBox.Cancel:
                 return
             elif reply == QMessageBox.Save:
-                # Emit save signal if needed
                 pass
 
         self.removeTab(index)
@@ -111,4 +61,5 @@ class FileBar(QTabWidget):
             self.setTabText(index, title + ' *')
         else:
             self.setTabText(index, title)
+
 

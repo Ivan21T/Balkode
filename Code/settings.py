@@ -1,16 +1,15 @@
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
+import json
 
 
 class Settings(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
-
     def setup_ui(self):
         main_layout = QVBoxLayout(self)
 
-        # Apply modern dark theme with blue accent
         self.setStyleSheet("""
             Settings {
                 background-color: #1a1d21;

@@ -3,6 +3,21 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from observer import Observer
+import json
+
+with open("settings.json", "r") as file:
+    settings_json=json.load(file)
+activity_bar_style=""
+icon_style=""
+if settings_json["settings"][0]["theme"]=="Dark":
+    for style in settings_json["styles"]["dark"]:
+        if style["name"]=="icon":
+            icon_style=style["style"]
+        elif style["name"]=="activity_bar":
+            activity_bar_style=style["style"]
+else:
+    print("There is no code for light theme")
+
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 observer=Observer()
@@ -15,33 +30,14 @@ class IconBarButton(QPushButton):
         self.setIcon(QIcon(icon_path))
         self.setIconSize(QSize(24, 24))
 
-        self.setStyleSheet("""
-            IconBarButton {
-                background: transparent;
-                border: none;
-                border-radius: 4px;
-            }
-            IconBarButton:hover {
-                background: #2a2d2e;
-            }
-            IconBarButton:checked {
-                background: #37373d;
-                border-left: 2px solid #007acc;
-            }
-        """)
+        self.setStyleSheet(icon_style)
 
 
 class ActivityBar(QFrame):
     def __init__(self):
         super().__init__()
         self.setFixedWidth(48)
-        self.setStyleSheet("""
-            ActivityBar {
-                background-color: #333333;
-                border: none;
-                border-right: 1px solid #2d2d2d;
-            }
-        """)
+        self.setStyleSheet(activity_bar_style)
 
         self.current_activity = None
         self.setup_activity_bar()

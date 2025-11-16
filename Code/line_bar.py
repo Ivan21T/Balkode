@@ -1,18 +1,32 @@
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
+import json
+
+
+with open("settings.json", "r") as file:
+    style_settings = json.load(file)
+
+line_bar_style=""
+number_style=""
+number_highlight=""
+
+if style_settings["settings"][0]["theme"]=="Dark":
+    for style_setting in style_settings["styles"]["dark"]:
+        if style_setting["name"] == "line_bar":
+            line_bar_style = style_setting["style"]
+            number_style = style_setting["number_normal"]
+            number_highlight = style_setting["number_highlight"]
+            break
+else:
+    #Here is the logic for the light theme
+    print("There is no light theme setting")
 
 class LineBar(QFrame):
     def __init__(self):
         super().__init__()
         self.setFixedWidth(30)
-        self.setStyleSheet("""
-            LineBar {
-                background: #1e1e1e;
-                border: none;
-                border-right: 1px solid #2d2d2d;
-            }
-        """)
+        self.setStyleSheet(line_bar_style)
         self.setup_line_number_bar()
         self.number = 1
         self.add_number()
@@ -27,11 +41,7 @@ class LineBar(QFrame):
     def add_number(self):
         number_label = QLabel(str(self.number))
         number_label.setAlignment(Qt.AlignCenter)
-        number_label.setStyleSheet("""
-            color: white;
-            font-family: Consolas;
-            font-size: 12px;
-        """)
+        number_label.setStyleSheet(number_style)
         number_label.setObjectName(str(self.number))
         self.layout.addWidget(number_label)
         self.number += 1
@@ -49,6 +59,6 @@ class LineBar(QFrame):
             widget = self.layout.itemAt(i).widget()
             if widget:
                 if int(widget.objectName()) == line_number:
-                    widget.setStyleSheet("color: cyan; font-family: Consolas; font-size: 12px;")
+                    widget.setStyleSheet(number_highlight)
                 else:
-                    widget.setStyleSheet("color: white; font-family: Consolas; font-size: 12px;")
+                    widget.setStyleSheet(number_style)

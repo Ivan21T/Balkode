@@ -1,0 +1,41 @@
+{
+  "settings": [
+    {
+      "font_size": 12,
+      "theme": "Dark",
+      "AI_enabled": false,
+      "last_file": "None"
+    }
+  ],
+  "styles": {
+    "dark": [
+      {
+        "name": "welcome_page",
+        "style": "QWidget {\n    background-color: #121212;\n    color: white;\n    font-family: 'Segoe UI', sans-serif;\n}\nQPushButton {\n    background-color: #1E1E1E;\n    border: 1px solid #2E2E2E;\n    border-radius: 10px;\n    padding: 10px 20px;\n    color: #ffffff;\n    font-size: 16px;\n}\nQPushButton:hover {\n    background-color: #232323;\n    border: 1px solid #00aaff;\n}\nQPushButton:pressed {\n    background-color: #0077cc;\n    color: white;\n}"
+      },
+      {
+        "name": "file_bar",
+        "style": "QTabWidget::pane {\n    border: none;\n    background: transparent;\n    margin: 0px;\n    padding: 0px;\n}\nQTabBar {\n    border: none;\n    background: transparent;\n}\nQTabBar::tab {\n    background: #363636;\n    color: #cccccc;\n    padding: 8px 24px 8px 16px;\n    margin-right: 4px;\n    border: 1px solid transparent;\n    font-weight: 500;\n    min-width: 120px;\n    border-radius: 6px;\n    margin-top: 4px;\n    margin-bottom: 2px;\n}\nQTabBar::tab:selected {\n    background: #363636;\n    color: #ffffff;\n    border: 1px solid #007acc;\n    margin-top: 0px;\n    margin-bottom: 0px;\n    margin-right: 6px;\n}\nQTabBar::tab:!selected {\n    background: #363636;\n    margin-right: 6px;\n}\nQTabBar::tab:hover {\n    background: #3e3e42;\n    margin-right: 6px;\n}\nQTabBar::tab:selected:hover {\n    background: #363636;\n    border: 1px solid #007acc;\n    margin-right: 6px;\n}\nQTabBar::close-button {\n    margin-right: 8px;\n}\nQTabBar::tab:!selected QTabBar::close-button {\n    width: 0px;\n    height: 0px;\n    margin: 0px;\n    padding: 0px;\n}"
+      },
+      {
+        "name": "line_bar",
+        "style": "LineBar {\n    background: #1e1e1e;\n    border: none;\n    border-right: 1px solid #2d2d2d;\n}",
+        "number_normal":"color: white;\nfont-family: Consolas;\nfont-size: 12px;",
+        "number_highlight": "color: cyan; font-family: Consolas; font-size: 12px;"
+      },
+      {
+        "name": "code_editor",
+        "style": "QPlainTextEdit {\n    background-color: #1e1e1e;\n    color: #d4d4d4;\n    border: 1px solid #3e3e3e;\n    font-family: 'Consolas', monospace;\n    font-size: 12px;\n}"
+      },
+      {
+        "name":"icon",
+        "style":"IconBarButton {\n    background: transparent;\n    border: none;\n    border-radius: 4px;\n}\nIconBarButton:hover {\n    background: #2a2d2e;\n}\nIconBarButton:checked {\n    background: #37373d;\n    border-left: 2px solid #007acc;\n}"
+      },
+      {
+        "name":"activity_bar",
+        "style":"ActivityBar {\n    background-color: #333333;\n    border: none;\n    border-right: 1px solid #2d2d2d;\n}"
+      }
+    ],
+    "light": []
+  }
+}

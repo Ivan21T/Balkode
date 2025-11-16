@@ -2,6 +2,19 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from line_bar import*
+import json
+
+with open("settings.json", "r") as file:
+    style_settings = json.load(file)
+
+code_editor_style=""
+if style_settings["settings"][0]["theme"]=="Dark":
+    for style in style_settings["styles"]["dark"]:
+        if style["name"]=="code_editor":
+            code_editor_style = style["style"]
+            break
+else:
+    print("There is no code for light theme")
 
 class CodeEdit(QPlainTextEdit):
     def __init__(self, line_bar):
@@ -11,15 +24,7 @@ class CodeEdit(QPlainTextEdit):
         self.cursorPositionChanged.connect(self.on_cursor_moved)
 
     def setup_editor(self):
-        self.setStyleSheet("""
-            QPlainTextEdit {
-                background-color: #1e1e1e;
-                color: #d4d4d4;
-                border: 1px solid #3e3e3e;
-                font-family: 'Consolas', monospace;
-                font-size: 12px;
-            }
-        """)
+        self.setStyleSheet(code_editor_style)
 
     def keyPressEvent(self, event):
         cursor = self.textCursor()

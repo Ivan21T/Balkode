@@ -6,34 +6,25 @@ from PySide6.QtWidgets import (
 from PySide6.QtGui import QPixmap, QFont, QIcon
 from PySide6.QtCore import Qt, QSize
 from activity_bar import base_dir
+import json
+
+with open("settings.json", "r") as file:
+    style_setting = json.load(file)
+
+welcome_page_style = ""
+if style_setting["settings"][0]["theme"]=="Dark":
+    for style_entry in style_setting["styles"]["dark"]:
+        if style_entry["name"] == "welcome_page":
+            welcome_page_style = style_entry["style"]
+            break
+else:
+    print("I do not have light theme")
 
 class WelcomePage(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Balkode - Welcome")
-        self.setStyleSheet("""
-            QWidget {
-                background-color: #121212;
-                color: white;
-                font-family: 'Segoe UI', sans-serif;
-            }
-            QPushButton {
-                background-color: #1E1E1E;
-                border: 1px solid #2E2E2E;
-                border-radius: 10px;
-                padding: 10px 20px;
-                color: #ffffff;
-                font-size: 16px;
-            }
-            QPushButton:hover {
-                background-color: #232323;
-                border: 1px solid #00aaff;
-            }
-            QPushButton:pressed {
-                background-color: #0077cc;
-                color: white;
-            }
-        """)
+        self.setStyleSheet(welcome_page_style)
 
         layout = QVBoxLayout(self)
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
