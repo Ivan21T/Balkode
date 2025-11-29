@@ -44,12 +44,15 @@ class WelcomePage(QWidget):
                                     ," Open File")
         open_folder_btn = QPushButton(QIcon(os.path.join(base_dir,"Assets","WelcomePage_Icons","folder.png"))
                                     ," Open Folder")
+        create_file_btn = QPushButton(QIcon(os.path.join(base_dir,"Assets","WelcomePage_Icons","create_file.png"))
+                                      ," Create File")
 
         open_file_btn.clicked.connect(self.open_file)
         open_folder_btn.clicked.connect(self.open_folder)
 
         layout.addWidget(open_file_btn)
         layout.addWidget(open_folder_btn)
+        layout.addWidget(create_file_btn)
 
     def open_file(self):
         file, _ = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*)")
@@ -60,6 +63,9 @@ class WelcomePage(QWidget):
         folder = QFileDialog.getExistingDirectory(self, "Open Folder", "")
         if folder:
             print(f"Selected folder: {folder}")
+
+    def create_file(self,code_area):
+        return
 
 
 

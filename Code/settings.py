@@ -3,6 +3,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 import sys
 
+
 class Settings(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -18,6 +19,7 @@ class Settings(QFrame):
         scroll.setWidget(container)
         main_layout = QVBoxLayout(self)
         main_layout.addWidget(scroll)
+
         self.setStyleSheet("""
             QFrame { background: #1a1d23; }
             QLabel { color: #e4e6eb; font-size: 14px; }
@@ -38,27 +40,31 @@ class Settings(QFrame):
                 background: transparent; color: #e4e6eb; border: 1px solid #3a3f47;
             }
             QPushButton#cancel:hover { background: #2a2e35; }
+
             QComboBox {
-                background: #2a2e35; color: white; border: 1px solid #3a3f47;
-                border-radius: 8px; padding: 12px 15px; font-size: 14px;
+                background: #2a2e35;
+                color: white;
+                border: 1px solid #3a3f47;
+                border-radius: 8px;
+                padding: 12px 40px 12px 15px;
+                font-size: 14px;
             }
+            QComboBox:focus { border: 1px solid #2d8cff; }
             QComboBox::drop-down {
                 subcontrol-origin: padding;
                 subcontrol-position: top right;
-                width: 30px;
-                border-left: none;
-                border-radius: 8px;
+                width: 40px;
                 background: #2d8cff;
+                border-radius: 0px 8px 8px 0px;
             }
             QComboBox::down-arrow {
-                width: 10px;
-                height: 10px;
-                border-left: 2px solid white;
-                border-bottom: 2px solid white;
-                transform: rotate(-45deg);
-                margin: auto;
+                image: url(../Assets/Icons_Pages/arrow_down.png);
             }
-            QComboBox:focus { border: 1px solid #2d8cff; }
+            QComboBox::down-arrow:on,
+            QComboBox::up-arrow {
+                image: url(../Assets/Icons_Pages/arrow_up.png);
+            }
+
             QCheckBox { color: white; spacing: 10px; font-size: 14px; }
             QCheckBox::indicator {
                 width: 20px; height: 20px; border-radius: 5px;
@@ -71,23 +77,13 @@ class Settings(QFrame):
                 font-size: 13px; line-height: 1.4;
             }
             QTextEdit#codePreview:focus { border: 1px solid #2d8cff; }
-            QScrollBar:vertical {
-                background: transparent;
-                width: 8px;
-            }
+            QScrollBar:vertical { background: transparent; width: 8px; }
             QScrollBar::handle:vertical {
-                background: #2d8cff;
-                border-radius: 4px;
-                min-height: 30px;
+                background: #2d8cff; border-radius: 4px; min-height: 30px;
             }
             QScrollBar::handle:vertical:hover { background: #4da1ff; }
-            QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {
-                background: none; height: 0px;
-            }
-            QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-                background: transparent;
-            }
         """)
+
         self.setup_ui()
         self.update_code_preview()
 
@@ -96,27 +92,33 @@ class Settings(QFrame):
         title.setObjectName("header")
         title.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(title)
+
         subtitle = QLabel("Customize your development environment")
         subtitle.setAlignment(Qt.AlignCenter)
         subtitle.setStyleSheet("color: #8b8d92; font-size: 14px; margin-bottom: 10px;")
         self.layout.addWidget(subtitle)
+
         profile_header = QLabel("Profile")
         profile_header.setObjectName("header")
         self.layout.addWidget(profile_header)
+
         form_layout = QVBoxLayout()
         form_layout.setSpacing(12)
+
         name_layout = QHBoxLayout()
         name_layout.addWidget(QLabel("Name:"))
         self.name_edit = QLineEdit("John Doe")
         self.name_edit.setReadOnly(True)
         name_layout.addWidget(self.name_edit)
         form_layout.addLayout(name_layout)
+
         email_layout = QHBoxLayout()
         email_layout.addWidget(QLabel("Email:"))
         self.email_edit = QLineEdit("john.doe@example.com")
         self.email_edit.setReadOnly(True)
         email_layout.addWidget(self.email_edit)
         form_layout.addLayout(email_layout)
+
         password_layout = QHBoxLayout()
         password_layout.addWidget(QLabel("Password:"))
         self.password_edit = QLineEdit("••••••••")
@@ -124,7 +126,9 @@ class Settings(QFrame):
         self.password_edit.setReadOnly(True)
         password_layout.addWidget(self.password_edit)
         form_layout.addLayout(password_layout)
+
         self.layout.addLayout(form_layout)
+
         btn_layout = QHBoxLayout()
         self.edit_btn = QPushButton("Edit Profile")
         self.edit_btn.clicked.connect(self.toggle_edit)
@@ -140,11 +144,14 @@ class Settings(QFrame):
         self.cancel_btn.setVisible(False)
         self.layout.addLayout(btn_layout)
         self.add_section_line()
+
         pref_header = QLabel("Appearance")
         pref_header.setObjectName("header")
         self.layout.addWidget(pref_header)
+
         settings_layout = QVBoxLayout()
         settings_layout.setSpacing(15)
+
         theme_layout = QHBoxLayout()
         theme_layout.addWidget(QLabel("Theme:"))
         self.theme_combo = QComboBox()
@@ -152,6 +159,7 @@ class Settings(QFrame):
         theme_layout.addWidget(self.theme_combo)
         theme_layout.addStretch()
         settings_layout.addLayout(theme_layout)
+
         font_layout = QHBoxLayout()
         font_layout.addWidget(QLabel("Font Size:"))
         self.font_combo = QComboBox()
@@ -160,6 +168,7 @@ class Settings(QFrame):
         font_layout.addWidget(self.font_combo)
         font_layout.addStretch()
         settings_layout.addLayout(font_layout)
+
         lang_layout = QHBoxLayout()
         lang_layout.addWidget(QLabel("Language:"))
         self.lang_combo = QComboBox()
@@ -167,13 +176,17 @@ class Settings(QFrame):
         lang_layout.addWidget(self.lang_combo)
         lang_layout.addStretch()
         settings_layout.addLayout(lang_layout)
+
         self.layout.addLayout(settings_layout)
         self.add_section_line()
+
         code_header = QLabel("Coding Style")
         code_header.setObjectName("header")
         self.layout.addWidget(code_header)
+
         code_layout = QVBoxLayout()
         code_layout.setSpacing(15)
+
         code_style_layout = QHBoxLayout()
         code_style_layout.addWidget(QLabel("Brace Style:"))
         self.code_style_combo = QComboBox()
@@ -182,6 +195,7 @@ class Settings(QFrame):
         code_style_layout.addWidget(self.code_style_combo)
         code_style_layout.addStretch()
         code_layout.addLayout(code_style_layout)
+
         indent_layout = QHBoxLayout()
         indent_layout.addWidget(QLabel("Indentation:"))
         self.indent_combo = QComboBox()
@@ -190,15 +204,19 @@ class Settings(QFrame):
         indent_layout.addWidget(self.indent_combo)
         indent_layout.addStretch()
         code_layout.addLayout(indent_layout)
+
         preview_label = QLabel("Code Style Preview:")
         preview_label.setStyleSheet("color: #e4e6eb; font-size: 14px; font-weight: bold;")
         code_layout.addWidget(preview_label)
+
         self.code_preview = QTextEdit()
         self.code_preview.setObjectName("codePreview")
         self.code_preview.setMinimumHeight(200)
         self.code_preview.setReadOnly(True)
         code_layout.addWidget(self.code_preview)
+
         self.layout.addLayout(code_layout)
+
         ai_layout = QHBoxLayout()
         self.ai_toggle = QCheckBox("Enable AI Code Assistant")
         self.ai_toggle.setChecked(True)
@@ -206,11 +224,14 @@ class Settings(QFrame):
         ai_layout.addWidget(self.ai_toggle)
         ai_layout.addStretch()
         self.layout.addLayout(ai_layout)
+
         self.layout.addStretch()
+
         apply_btn = QPushButton("Save All Settings")
         apply_btn.setFixedHeight(45)
         apply_btn.clicked.connect(self.apply_settings)
         self.layout.addWidget(apply_btn)
+
         self.original_name = "John Doe"
         self.original_email = "john.doe@example.com"
 
@@ -224,16 +245,21 @@ class Settings(QFrame):
         style = self.code_style_combo.currentText()
         indent = self.indent_combo.currentText()
         if "Spaces (2)" in indent:
-            indent_size = 2; indent_char = " "
+            indent_size = 2;
+            indent_char = " "
         elif "Spaces (8)" in indent:
-            indent_size = 8; indent_char = " "
+            indent_size = 8;
+            indent_char = " "
         elif "Tabs" in indent:
-            indent_size = 1; indent_char = "\t"
+            indent_size = 1;
+            indent_char = "\t"
         else:
-            indent_size = 4; indent_char = " "
+            indent_size = 4;
+            indent_char = " "
         indent1 = indent_char * indent_size
         indent2 = indent_char * (indent_size * 2)
         indent3 = indent_char * (indent_size * 3)
+
         if style == "K&R":
             code = f"""void example() {{
 {indent1}if (condition) {{
@@ -294,8 +320,7 @@ class Settings(QFrame):
         self.code_preview.setPlainText(code)
 
     def on_ai_toggled(self, checked):
-        status = "enabled" if checked else "disabled"
-        print(f"AI Code Assistant {status}")
+        print(f"AI Code Assistant {'enabled' if checked else 'disabled'}")
 
     def toggle_edit(self):
         editing = not self.name_edit.isReadOnly()
@@ -347,12 +372,14 @@ Coding Style:
 • AI Assistant: {'Enabled' if settings['ai_enabled'] else 'Disabled'}"""
         QMessageBox.information(self, "Settings Saved", message)
 
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = QWidget()
+    window.setWindowTitle("Settings")
     layout = QVBoxLayout(window)
     settings_frame = Settings()
     layout.addWidget(settings_frame)
-    window.resize(800, 800)
+    window.resize(800, 900)
     window.show()
     sys.exit(app.exec())

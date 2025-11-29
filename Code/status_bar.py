@@ -1,13 +1,21 @@
 import psutil
 import time
-from PySide6.QtWidgets import QStatusBar, QLabel
+import os
+from PySide6.QtLocation import QPlaceIcon
+from PySide6.QtWidgets import QStatusBar, QLabel, QPushButton
 from PySide6.QtCore import QTimer, QDateTime
+from PySide6.QtGui import *
+from activity_bar import base_dir
+from ai_window import ChatbotWindow
 
 
 class StatusBar(QStatusBar):
     def __init__(self, parent=None):
         super().__init__(parent)
 
+        self.ai_button=QPushButton(QIcon(os.path.join(base_dir,"Assets","StatusBar_Icons"
+                                                       ,"ai.png"))
+                                    ,"AI")
         self.time_label = QLabel("00:00:00")
         self.cursor_label = QLabel("Ln 1, Col 1")
         self.separator1 = QLabel("|")
@@ -16,6 +24,8 @@ class StatusBar(QStatusBar):
         self.memory_label = QLabel("RAM: 0%")
 
         self.addWidget(self.time_label)
+
+        self.addPermanentWidget(self.ai_button)
         self.addPermanentWidget(self.cursor_label)
         self.addPermanentWidget(self.separator1)
         self.addPermanentWidget(self.cpu_label)
@@ -42,6 +52,8 @@ class StatusBar(QStatusBar):
         self.coding_timer.timeout.connect(self.update_timer)
         self.elapsed_seconds = 0
         self.coding_timer.start(1000)
+
+        self.ai_button.clicked.connect(self.toggle_chatbot)
 
     def get_percentage_color(self, percent):
         if percent <= 50:
@@ -73,3 +85,10 @@ class StatusBar(QStatusBar):
         seconds = self.elapsed_seconds % 60
 
         self.time_label.setText(f"{hours:02d}:{minutes:02d}:{seconds:02d}")
+
+    def toggle_chatbot(self):
+        if not hasattr(self, 'chat_window') or not self.chat_window.isVisible():
+            self.chat_window = ChatbotWindow(self.parent(), self.ai_button)
+            self.chat_window.show()
+        else:
+            self.chat_window.hide()
