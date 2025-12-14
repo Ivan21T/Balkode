@@ -373,13 +373,3 @@ Coding Style:
         QMessageBox.information(self, "Settings Saved", message)
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = QWidget()
-    window.setWindowTitle("Settings")
-    layout = QVBoxLayout(window)
-    settings_frame = Settings()
-    layout.addWidget(settings_frame)
-    window.resize(800, 900)
-    window.show()
-    sys.exit(app.exec())

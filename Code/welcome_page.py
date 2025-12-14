@@ -21,10 +21,12 @@ else:
     print("I do not have light theme")
 
 class WelcomePage(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self,code_area_widget,code_area, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Balkode - Welcome")
         self.setStyleSheet(welcome_page_style)
+        self.code_area_widget = code_area_widget
+        self.code_area =code_area
 
         layout = QVBoxLayout(self)
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -55,9 +57,17 @@ class WelcomePage(QWidget):
         layout.addWidget(create_file_btn)
 
     def open_file(self):
-        file, _ = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*)")
-        if file:
-            print(f"Selected file: {file}")
+        file_path, _ = QFileDialog.getOpenFileName(
+            self, "Open File", "", "All Files (*)"
+        )
+        if file_path:
+                with open(file_path, "rb") as f:
+                    data = f.read()
+                    text = data.decode("utf-8")
+                self.code_area.setPlainText(text)
+                self.hide()
+                self.code_area_widget.show()
+
 
     def open_folder(self):
         folder = QFileDialog.getExistingDirectory(self, "Open Folder", "")

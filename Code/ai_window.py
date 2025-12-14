@@ -84,9 +84,12 @@ class ChatbotWindow(QDialog):
                 border-radius: 10px;
                 font-size: 12px;
                 font-weight: bold;
+                border-image: url(../Assets/Icons_Pages/close_btn.png) 0 0 0 0 stretch stretch;
+                
             }
             QPushButton:hover {
                 background-color: #888888;
+                border-image: url(../Assets/Icons_Pages/close_btn.png) 0 0 0 0 stretch stretch;
             }
         """)
         self.close_btn.clicked.connect(self.hide)

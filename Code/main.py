@@ -27,8 +27,11 @@ app.setPalette(palette)
 app.setWindowIcon(QIcon(os.path.join(base_dir,"Assets","balkode.png")))
 
 window = window.MainWindow()
+"""
 loader=StartupAnimation()
 loader.show()
 loader.setWindowTitle("Balkode")
 QTimer.singleShot(5500, lambda: [loader.close(), window.show()])
+"""
+window.show()
 app.exec()

@@ -36,7 +36,6 @@ class MainWindow(QMainWindow):
         self.editor_area = CodeEdit(self.line_bar)
         self.search_frame = SearchFrame()
         self.terminal_frame = TerminalFrame()
-        self.welcome_page = WelcomePage()
 
         #Layout for code editor with terminal and line number
         self.code_area_widget = QWidget()
@@ -44,17 +43,13 @@ class MainWindow(QMainWindow):
         self.layout_code_area.addWidget(self.line_bar)
         self.layout_code_area.addWidget(self.editor_area)
 
-        self.splitter = QSplitter(Qt.Vertical)
-        self.splitter.addWidget(self.code_area_widget)
-        self.splitter.addWidget(self.terminal_frame)
-        self.splitter.setSizes([400, 200])
+        self.welcome_page = WelcomePage(self.code_area_widget,self.editor_area)
 
         self.editor_area.cursorPositionChanged.connect(self.update_cursor_position)
         observer.on_change.register(self.update_layout)
 
         self.main_layout.addWidget(self.activity_bar)
         self.main_layout.addWidget(self.welcome_page)
-        #self.main_layout.addWidget(self.splitter)
 
         self.main_layout.setStretch(0, 0)
         self.main_layout.setStretch(1, 1)
@@ -69,7 +64,8 @@ class MainWindow(QMainWindow):
         line = cursor.blockNumber() + 1
         col = cursor.columnNumber() + 1
         self.status_bar.update_cursor_position(line, col)
-
+    def open_file(self):
+        self.welcome_page.open_file()
     def update_layout(self,old_state,new_state):
         if new_state=="Explorer":
             self.main_layout.addWidget(self.line_bar)
