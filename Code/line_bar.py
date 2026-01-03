@@ -22,43 +22,43 @@ else:
     #Here is the logic for the light theme
     print("There is no light theme setting")
 
-class LineBar(QFrame):
-    def __init__(self):
-        super().__init__()
-        self.setFixedWidth(30)
-        self.setStyleSheet(line_bar_style)
-        self.setup_line_number_bar()
-        self.number = 1
-        self.add_number()
+class LineBar(QWidget):
+    def __init__(self, editor):
+        super().__init__(editor)
+        self.editor = editor
 
-    def setup_line_number_bar(self):
-        self.layout = QVBoxLayout()
-        self.layout.setContentsMargins(0, 5, 0, 5)
-        self.layout.setSpacing(0)
-        self.layout.setAlignment(Qt.AlignTop)
-        self.setLayout(self.layout)
+    def sizeHint(self):
+        return QSize(self.editor.line_bar_width(), 0)
 
-    def add_number(self):
-        number_label = QLabel(str(self.number))
-        number_label.setAlignment(Qt.AlignCenter)
-        number_label.setStyleSheet(number_style)
-        number_label.setObjectName(str(self.number))
-        self.layout.addWidget(number_label)
-        self.number += 1
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.fillRect(event.rect(), QColor("#1e1e1e"))
 
-    def remove_number(self):
-        if self.layout.count() > 1:
-            item = self.layout.takeAt(self.layout.count() - 1)
-            widget = item.widget()
-            if widget:
-                widget.deleteLater()
-            self.number -= 1
+        block = self.editor.firstVisibleBlock()
+        block_number = block.blockNumber()
 
-    def highlight_line(self, line_number):
-        for i in range(self.layout.count()):
-            widget = self.layout.itemAt(i).widget()
-            if widget:
-                if int(widget.objectName()) == line_number:
-                    widget.setStyleSheet(number_highlight)
-                else:
-                    widget.setStyleSheet(number_style)
+        top = int(
+            self.editor.blockBoundingGeometry(block)
+            .translated(self.editor.contentOffset())
+            .top()
+        )
+        bottom = top + int(self.editor.blockBoundingRect(block).height())
+
+        while block.isValid() and top <= event.rect().bottom():
+            if block.isVisible() and bottom >= event.rect().top():
+                number = str(block_number + 1)
+
+                painter.setPen(QColor("#858585"))
+                painter.drawText(
+                    0,
+                    top,
+                    self.width() - 6,
+                    self.editor.fontMetrics().height(),
+                    Qt.AlignRight,
+                    number,
+                )
+
+            block = block.next()
+            top = bottom
+            bottom = top + int(self.editor.blockBoundingRect(block).height())
+            block_number += 1

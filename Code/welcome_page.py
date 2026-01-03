@@ -21,12 +21,13 @@ else:
     print("I do not have light theme")
 
 class WelcomePage(QWidget):
-    def __init__(self,code_area_widget,code_area, parent=None):
+    def __init__(self,code_area_widget,code_area,main_layout, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Balkode - Welcome")
         self.setStyleSheet(welcome_page_style)
         self.code_area_widget = code_area_widget
         self.code_area =code_area
+        self.main_layout = main_layout
 
         layout = QVBoxLayout(self)
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -51,6 +52,7 @@ class WelcomePage(QWidget):
 
         open_file_btn.clicked.connect(self.open_file)
         open_folder_btn.clicked.connect(self.open_folder)
+        create_file_btn.clicked.connect(self.create_file)
 
         layout.addWidget(open_file_btn)
         layout.addWidget(open_folder_btn)
@@ -65,8 +67,9 @@ class WelcomePage(QWidget):
                     data = f.read()
                     text = data.decode("utf-8")
                 self.code_area.setPlainText(text)
+                self.main_layout.removeWidget(self)
                 self.hide()
-                self.code_area_widget.show()
+                self.main_layout.addWidget(self.code_area_widget)
 
 
     def open_folder(self):
@@ -74,8 +77,14 @@ class WelcomePage(QWidget):
         if folder:
             print(f"Selected folder: {folder}")
 
-    def create_file(self,code_area):
+    def create_file(self):
+        self.code_area.clear()
+        self.main_layout.removeWidget(self)
+        self.hide()
+        self.main_layout.addWidget(self.code_area_widget)
         return
+
+
 
 
 

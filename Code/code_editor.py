@@ -19,27 +19,37 @@ else:
 class CodeEdit(QPlainTextEdit):
     def __init__(self, line_bar):
         super().__init__()
+
         self.line_bar = line_bar
-        self.setup_editor()
-        self.cursorPositionChanged.connect(self.on_cursor_moved)
+        self.line_bar.editor = self
 
-    def setup_editor(self):
-        self.setStyleSheet(code_editor_style)
+        self.blockCountChanged.connect(self.update_line_bar_width)
+        self.updateRequest.connect(self.update_line_bar)
+        self.cursorPositionChanged.connect(self.update_line_bar)
 
-    def keyPressEvent(self, event):
-        cursor = self.textCursor()
-        block = cursor.block()
-        line_text = block.text().strip()
+        self.update_line_bar_width(0)
 
-        if event.key() in (Qt.Key_Return, Qt.Key_Enter):
-            self.line_bar.add_number()
+    def line_bar_width(self):
+        digits = len(str(max(1, self.blockCount())))
+        return 10 + self.fontMetrics().horizontalAdvance("9") * digits
 
-        elif event.key() == Qt.Key_Backspace:
-            if not line_text and self.line_bar.number > 1:
-                self.line_bar.remove_number()
+    def update_line_bar_width(self, _):
+        self.setViewportMargins(self.line_bar_width(), 0, 0, 0)
 
-        super().keyPressEvent(event)
+    def update_line_bar(self, rect=None, dy=0):
+        if dy:
+            self.line_bar.scroll(0, dy)
+        else:
+            self.line_bar.update()
 
-    def on_cursor_moved(self):
-        line_number = self.textCursor().blockNumber() + 1
-        self.line_bar.highlight_line(line_number)
+        if rect and rect.contains(self.viewport().rect()):
+            self.update_line_bar_width(0)
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        cr = self.contentsRect()
+        self.line_bar.setGeometry(
+            QRect(cr.left(), cr.top(), self.line_bar_width(), cr.height())
+        )
+
+
